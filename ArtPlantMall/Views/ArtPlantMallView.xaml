@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:templates="clr-namespace:ArtPlantMall.Views.Templates"
+             xmlns:views="clr-namespace:ArtPlantMall.Views"
+             mc:Ignorable="d"
+             BackgroundColor="White"
+             x:Class="ArtPlantMall.Views.ArtPlantMallView">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="TitleStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource Futura}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSize28}"/>
+                <Setter Property="TextColor" Value="{StaticResource BlackColor}"/>
+                <Setter Property="Margin" Value="18,24,0,0"/>
+            </Style>
+        </ResourceDictionary>
+
+        <DataTemplate x:Key="PlantDataTemplate">
+            <templates:PlantDataTemplate/>
+        </DataTemplate>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid RowSpacing="0">
+            <!-- header -->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="70"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" 
+                   Text="Plant mall" Style="{StaticResource TitleStyle}"/>
+                <!-- plants list -->
+                <CollectionView Grid.Row="1"
+                            ItemsSource="{Binding Plants}"
+                            ItemTemplate="{StaticResource PlantDataTemplate}"
+                            SelectedItem="{Binding SelectedPlant, Mode=TwoWay}"
+                            SelectionChangedCommand="{Binding PlantDetailCommand}"
+                            >
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="2"/>
+                    </CollectionView.ItemsLayout>
+                </CollectionView>
+            </Grid>
+            <!-- popup -->
+            <views:CartPopupView x:Name="CartPopup"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
+    
